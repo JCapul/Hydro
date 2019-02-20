@@ -8,11 +8,11 @@ include make.inc
 CFLAGS += $(CFLAGS_MPI) $(DEF)
 CFLAGS += $(CFLAGS_OMP) -g
 CFLAGS += $(CFLAGS_FTI)
-CFLAGS += -vec-report3
+#CFLAGS += -vec-report3
 LDFLAGS += $(LDFLAGS_MPI)
 LDFLAGS += $(LDFLAGS_OMP)
 LDFLAGS += $(LDFLAGS_FTI)
-LDFLAGS += -lrt
+LDFLAGS += -lrt -lnuma
 
 # Sources directories
 #--------------------
@@ -50,10 +50,10 @@ listing:
 	rm listing.ps
 
 %.o: $(SRCDIR)/%.c
-	$(CC) $(CFLAGS) -c $<
+	$(CC) $(CFLAGS) -o $@ -c $<
 
 %.o: $(SRCDIR)/%.cu
-	$(NVCC) $(NVCFLAGS) -c $<
+	$(NVCC) $(NVCFLAGS) -o $@ -c $<
 
 # Dependencies
 #-------------
